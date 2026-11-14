@@ -2,7 +2,7 @@
 
 > Mọi con số lấy từ file do pipeline/script sinh ra (`out/poc/*`, `out/baseline/*`, `python -m tools.dev_selfcheck`).
 > Repo học viên **không có Ground Truth** (`gt/` do giảng viên giữ) nên chưa có `reports/metrics_*.json` /
-> `table1_baseline_vs_poc.md`; phần cần số đó ghi rõ là "chờ giảng viên chấm". Mục có dấu **[CẦN ĐIỀN]** là thông tin chỉ nhóm biết.
+> `table1_baseline_vs_poc.md`; phần cần số đó ghi rõ là "chờ giảng viên chấm".
 
 ## 00 · Header
 
