@@ -93,8 +93,8 @@ Slice theo camera (dev): baseline báo nhầm 4 ảnh sạch của cam_B (`img_0
 
 - **Review queue:** `out/poc/review_queue.csv` (B = 20, xếp theo `score` giảm dần, trong 40 ảnh eval) và `out/poc/contact_sheet.html` (mở bằng trình duyệt, có ảnh, loại lỗi gợi ý và nút Export CSV).
 - **Override và audit log:** `review()` trong `src/pipeline.py` đọc `out/poc/review_queue_reviewed.csv`. `approve`, `skip`, `escalate` giữ quyết định của máy; `reject` = ảnh thực ra sạch (KEEP, score 0); `edit` + `override_value` ∈ {`KEEP`, `RECAPTURE`, `blur`, `dark`, `glare`, `compression`}. Mỗi quyết định ghi một dòng vào `out/poc/audit_log.jsonl` (thời điểm, người review, trước/sau, lý do).
-- **Vòng review:** đã chạy một vòng trên 20 ảnh của hàng đợi, kết quả ở `reports/review_queue.csv` và `reports/audit_log.jsonl` (20 dòng). 17 ảnh `approve` (15 ảnh bị cờ có loại lỗi khớp với những gì nhìn thấy, và 2 ảnh KEEP `img_23_1`, `img_06_0` trông sạch), 3 ảnh `escalate` (`img_16_3`, `img_03_3`, `img_19_2`: điểm compression 0.65–0.85, nhìn thumbnail không khẳng định được). Không có override: `reject`/`edit` = 0, nên `decision.json` vẫn là HOLD 18/40.
-- **Lưu ý trung thực về review:** vòng review này do trợ lý AI (Claude) thực hiện theo ủy quyền của Nguyễn Hoàn Thiện, đọc thumbnail 320×180 trong một lần xem, không phải reviewer người độc lập; tên reviewer trong log ghi rõ điều đó. 3 ảnh `escalate` cần người thật xem lại ảnh gốc trước khi nộp.
+- **Vòng review:** hai lượt trên 20 ảnh của hàng đợi, kết quả ở `reports/review_queue.csv` và `reports/audit_log.jsonl` (40 dòng, ghi nối thêm, không xoá). Lượt 1: trợ lý AI (Claude) review theo ủy quyền, 17 `approve` và 3 `escalate` (`img_16_3`, `img_03_3`, `img_19_2`, điểm compression 0.65–0.85, nhìn thumbnail không khẳng định được). Lượt 2: Nguyễn Hoàn Thiện xem lại 3 ảnh đó và `approve` cả 3. Kết quả cuối: 20/20 `approve`, không có `reject`/`edit` nên không có override, `decision.json` vẫn là HOLD 18/40.
+- **Lưu ý trung thực về review:** 17 ảnh còn lại do trợ lý AI duyệt theo ủy quyền của Nguyễn Hoàn Thiện (xem thumbnail 320×180, dòng log ghi rõ điều đó); chỉ 3 ảnh ở lượt 2 do chính reviewer duyệt. Chưa có reviewer người thứ hai độc lập.
 - **Decision policy + reason_code + owner:** `GO` / `ALL_KEEP`; `REWORK` / `RECAPTURE_FLAGGED_IMAGES`; `HOLD` / `SYSTEMIC_CAPTURE_DEFECTS` (≥ 40% ảnh bị cờ). Owner: Nguyễn Hoàn Thiện - reviewer. Kết quả sau review: `HOLD`, 18/40 = 45% bị gắn cờ (compression 8, blur 4, dark 4, glare 2).
 - **Khi nào HOLD/REWORK thay vì tự động release:** bất kỳ ảnh nào bị gắn cờ thì không tự động release lô; ≥ 40% bị cờ thì dừng cả lô để kiểm chuỗi thu ảnh, dưới 40% thì chỉ chụp lại các ảnh bị cờ.
 
@@ -110,7 +110,7 @@ python -m venv .venv
 .venv/Scripts/python.exe -m pytest -q
 ```
 
-- **Output của `pytest`:** `47 passed, 39 skipped` (skip chủ yếu do thiếu `gt/` hoặc dữ liệu tuỳ chọn). Trên máy này pytest cần `--basetemp=<thư mục khác>` vì thư mục tạm mặc định báo `PermissionError`.
+- **Output của `pytest`:** `48 passed, 39 skipped` (gồm `tests/test_t02_poc.py` mới cho PoC) (skip chủ yếu do thiếu `gt/` hoặc dữ liệu tuỳ chọn). Trên máy này pytest cần `--basetemp=<thư mục khác>` vì thư mục tạm mặc định báo `PermissionError`.
 - **Thay đổi test:** `tests/test_cli.py::test_template_pipeline_fails_clearly_not_silently` kiểm template chưa cài thì exit 3; vì `src/pipeline.py` nay cài T02 nên test chuyển sang track `t01` (chưa cài) để giữ nguyên ý nghĩa.
 - **Máy / OS / Python:** Intel64 Family 6 Model 154, Windows 11 (10.0.22000), Python 3.12.10. Git sha khi chạy: `b0ce8bf` + thay đổi của nhóm; commit code `2c9fb26`.
 

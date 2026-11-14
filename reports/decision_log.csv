@@ -1,3 +1,4 @@
 ts,scope,status,canonical,reason_code,reason,owner,evidence
 2026-11-14T18:20:29+00:00,t02,HOLD,HOLD,SYSTEMIC_CAPTURE_DEFECTS,"18/40 images flagged (45% >= 40%): suspect the capture chain, do not release the batch; by type {'compression': 8, 'blur': 4, 'dark': 4, 'glare': 2}",Nguyễn Hoàn Thiện - reviewer,out\poc\ranked_review.csv;out\poc\review_queue.csv
 2026-11-14T18:28:38+00:00,t02,HOLD,HOLD,SYSTEMIC_CAPTURE_DEFECTS,"18/40 images flagged (45% >= 40%): suspect the capture chain, do not release the batch; by type {'compression': 8, 'blur': 4, 'dark': 4, 'glare': 2}",Nguyễn Hoàn Thiện - reviewer,out\poc\ranked_review.csv;out\poc\review_queue.csv
+2026-11-14T18:53:58+00:00,t02,HOLD,HOLD,SYSTEMIC_CAPTURE_DEFECTS,"18/40 images flagged (45% >= 40%): suspect the capture chain, do not release the batch; by type {'compression': 8, 'blur': 4, 'dark': 4, 'glare': 2}",Nguyễn Hoàn Thiện - reviewer,out\poc\ranked_review.csv;out\poc\review_queue.csv

@@ -175,3 +175,10 @@ make eval-baseline eval-poc compare TRACK=tXX      # cần overlay giảng viên
 | Showcase & debate | 8 |
 
 Bonus: +5 verified E2E trước phút 180 (tag) · +5 ablation/hidden test thật · +5 debate tìm bug thật bằng test.
+
+## Nhóm G03 — T02 Raw QC Triage
+
+- Repo: https://github.com/leejihoon-quant/K5-Day6-L2-NguyenHoanThien-2A202603123-DataGovernanceAndPrivacy
+- Tag `demo-180m` = commit `2c9fb26` (code T02); tag `final-24h` = commit cuối trên `main`.
+- Báo cáo: `reports/group_report.md` · metric contract: `reports/metric_contract.md`.
+- Chạy PoC: `python -m src.main --config configs/lab.yaml --track t02 --output out/poc --run-name poc --offline --seed 42`
