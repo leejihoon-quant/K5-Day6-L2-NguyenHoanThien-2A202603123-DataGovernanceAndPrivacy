@@ -1,6 +1,2 @@
 member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
-Member 1,,,Lead / Integrator,src/main.py; configs/,,,
-Member 2,,,Data & fixtures,fixtures/; tools/,,,
-Member 3,,,Core algorithm,src/pipeline.py,,,
-Member 4,,,QA / metric,tests/; reports/metrics_*.json,,,
-Member 5,,,Human review + report,reports/group_report.md; demo/,,,
+Nguyễn Hoàn Thiện,Nguyễn Hoàn Thiện,26ai.thiennh@vinuni.edu.vn,"Lead / Integrator; Data; Core algorithm; QA; Human review + report (nhóm 1 người)","configs/lab.yaml; src/pipeline.py; src/t02_baseline.py; tools/dev_selfcheck.py; tests/test_cli.py; reports/","2c9fb26","Baseline + PoC cho T02; nhãn dev; review queue + audit log; metric_contract.md; group_report.md",yes
